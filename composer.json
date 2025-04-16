@@ -1,17 +1,15 @@
 {
 	"name": "journify/journify-php",
-	"description": "Journify Analytics PHP Library",
+	"description": "Journify PHP SDK",
 	"keywords": [
-		"analytics",
-		"journify",
-		"journify.io",
-		"analytics.js"
+		"tracking",
+		"journify"
 	],
-	"homepage": "https://journify.io/libraries/php",
+	"homepage": "https://journify.io/",
 	"license": "MIT",
 	"authors": [
 		{
-			"name": "Journify <friends@journify.io>",
+			"name": "Journify <engineering@journify.io>",
 			"homepage": "https://journify.io/"
 		}
 	],

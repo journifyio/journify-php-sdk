@@ -44,6 +44,8 @@ jobs:
         - name: Release
           uses: softprops/action-gh-release@v2
           if: github.ref_type == 'tag'
+          with: 
+            tag_name: ${{ steps.version.outputs.version_tag }}
         
         - name: Slack notification - Released
           uses: slackapi/slack-github-action@v1.23.0

@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'RELEASING.md'
+      - 'README.md'
+      - '.github/**'
 
 jobs:
     release:
@@ -35,11 +39,11 @@ jobs:
           env:
               SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-        - name: Update SDK Version 
-          run: |
-            sed -i "s/\$JOURNIFY_VERSION = '.*';/\$JOURNIFY_VERSION = '${{ steps.version.outputs.version_tag }}';/" lib/Version.php 
-        
-        - uses: stefanzweifel/git-auto-commit-action@v5
+        #- name: Update SDK Version 
+        #  run: |
+        #    sed -i "s/\$JOURNIFY_VERSION = '.*';/\$JOURNIFY_VERSION = '${{ steps.version.outputs.version_tag }}';/" lib/Version.php 
+        #
+        #- uses: stefanzweifel/git-auto-commit-action@v5
         
         - name: Release
           uses: softprops/action-gh-release@v2

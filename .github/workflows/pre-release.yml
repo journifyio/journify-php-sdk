@@ -1,0 +1,32 @@
+name: Release
+on:
+  pull_request:
+    paths-ignore:
+      - 'RELEASING.md'
+      - 'README.md'
+      - '.github/**'
+
+jobs:
+    pre-release:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0 
+    
+        - name: Version
+          uses: paulhatch/semantic-version@v5.4.0
+          id: version
+          with:
+            tag_prefix: ""
+                
+    
+
+        - name: Update SDK Version 
+          run: |
+            sed -i "s/\$JOURNIFY_VERSION = '.*';/\$JOURNIFY_VERSION = '${{ steps.version.outputs.version_tag }}';/" lib/Version.php 
+        
+        - uses: stefanzweifel/git-auto-commit-action@v5
+
+

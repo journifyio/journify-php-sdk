@@ -1,12 +1,6 @@
 name: Release
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - 'RELEASING.md'
-      - 'README.md'
-      - '.github/**'
+  workflow_dispatch:
 
 jobs:
     release:
@@ -22,7 +16,22 @@ jobs:
           id: version
           with:
             tag_prefix: ""
-                
+
+        - name: Validate version in lib/Version.php
+          run: |
+            version=$(sed -n "s/^\$JOURNIFY_VERSION = '\([^']*\)';/\1/p" lib/Version.php)
+            if [ -z "$version" ] || [ -z "${{ steps.version.outputs.version_tag }}" ]; then
+              echo "One or both version variables are empty. Exiting..."
+              exit 1
+            elif [ "$version" != "${{ steps.version.outputs.version_tag }}" ]; then
+              echo "Error: Could not extract version from lib/Version.php. Ensure the \$JOURNIFY_VERSION variable is defined and follows the expected format."
+              echo "Version mismatch. Extracted version: $version, Expected version: ${{ steps.version.outputs.version_tag }}. Exiting..."
+            fi
+            if [ "$version" != "${{ steps.version.outputs.version_tag }}" ]; then
+              echo "Version mismatch. Exiting..."
+              exit 1
+            fi
+        
         - name: Tag
           uses: rickstaa/action-create-tag@v1
           with:
@@ -39,11 +48,6 @@ jobs:
           env:
               SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-        #- name: Update SDK Version 
-        #  run: |
-        #    sed -i "s/\$JOURNIFY_VERSION = '.*';/\$JOURNIFY_VERSION = '${{ steps.version.outputs.version_tag }}';/" lib/Version.php 
-        #
-        #- uses: stefanzweifel/git-auto-commit-action@v5
         
         - name: Release
           uses: softprops/action-gh-release@v2

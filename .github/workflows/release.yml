@@ -20,13 +20,6 @@ jobs:
         - name: Validate version in lib/Version.php
           run: |
             version=$(sed -n "s/^\$JOURNIFY_VERSION = '\([^']*\)';/\1/p" lib/Version.php)
-            if [ -z "$version" ] || [ -z "${{ steps.version.outputs.version_tag }}" ]; then
-              echo "One or both version variables are empty. Exiting..."
-              exit 1
-            elif [ "$version" != "${{ steps.version.outputs.version_tag }}" ]; then
-              echo "Error: Could not extract version from lib/Version.php. Ensure the \$JOURNIFY_VERSION variable is defined and follows the expected format."
-              echo "Version mismatch. Extracted version: $version, Expected version: ${{ steps.version.outputs.version_tag }}. Exiting..."
-            fi
             if [ "$version" != "${{ steps.version.outputs.version_tag }}" ]; then
               echo "Version mismatch. Exiting..."
               exit 1

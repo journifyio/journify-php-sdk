@@ -1,0 +1,73 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0 
+    
+        - name: Version
+          uses: paulhatch/semantic-version@v5.4.0
+          id: version
+          with:
+            tag_prefix: ""
+                
+        - name: Tag
+          uses: rickstaa/action-create-tag@v1
+          with:
+            tag: ${{ steps.version.outputs.version_tag }}
+    
+        - name: Slack notification - Releasing
+          uses: slackapi/slack-github-action@v1.23.0
+          with:
+            channel-id: 'C03KN9Q2S7P'
+            payload: |
+                    {
+                    "text": "*Journify-php-sdk*: Creating a New Release with TAG *${{ steps.version.outputs.version_tag }}* ..."
+                    }
+          env:
+              SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+        - name: Update SDK Version 
+          run: |
+            sed -i "s/\$JOURNIFY_VERSION = '.*';/\$JOURNIFY_VERSION = '${{ steps.version.outputs.version_tag }}';/" lib/Version.php 
+        
+        - uses: stefanzweifel/git-auto-commit-action@v5
+        
+        - name: Release
+          uses: softprops/action-gh-release@v2
+          if: github.ref_type == 'tag'
+          with: 
+            tag_name: ${{ steps.version.outputs.version_tag }}
+        
+        - name: Slack notification - Released
+          uses: slackapi/slack-github-action@v1.23.0
+          with:
+            channel-id: 'C03KN9Q2S7P'
+            payload: |
+                {
+                "text": "*Journify-php-sdk*: New Release created with TAG *${{ steps.version.outputs.version_tag }}* :tada:!"
+                }
+          env:
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    
+        - name: Slack notification - Release failed
+          uses: slackapi/slack-github-action@v1.23.0
+          if: failure()
+          with:
+            channel-id: 'C03KN9Q2S7P'
+            payload: |
+                {
+                "text": "<!here> *Journify-php-sdk*: :x: Failed to create new  Release with TAG *${{ steps.version.outputs.version_tag }}* :cry:!"
+                }
+          env:
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+

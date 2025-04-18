@@ -21,7 +21,7 @@ class Client
      * @param string $secret
      * @param array $options array of consumer options [optional]
      * @param string Consumer constructor to use, libcurl by default.
-     *
+     * test
      */
     public function __construct(string $secret, array $options = [])
     {

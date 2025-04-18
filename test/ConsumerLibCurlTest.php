@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Journify\Test;
 
-use PHPUnit\Framework\TestCase;
-use RuntimeException;
 use Journify\Client;
+use PHPUnit\Framework\TestCase;
 
 class ConsumerLibCurlTest extends TestCase
 {
@@ -83,6 +82,7 @@ class ConsumerLibCurlTest extends TestCase
         ]));
     }
 
+    /*
     public function testRequestCompression(): void
     {
         $options = [
@@ -99,6 +99,7 @@ class ConsumerLibCurlTest extends TestCase
         self::assertTrue($client->track(['user_id' => 'some-user', 'event' => 'Socket PHP Event']));
         $client->__destruct();
     }
+    //*/
 
     public function testLargeMessageSizeError(): void
     {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Journify\Test;
 
-use PHPUnit\Framework\TestCase;
 use Journify\Journify;
 use Journify\JournifyException;
+use PHPUnit\Framework\TestCase;
 
 class AnalyticsTest extends TestCase
 {

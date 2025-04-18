@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Journify\Test;
 
+use Journify\Client;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use Journify\Client;
 
 class ConsumerLibCurlTest extends TestCase
 {

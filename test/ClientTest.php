@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Journify\Test;
 
-use PHPUnit\Framework\TestCase;
 use Journify\Client;
 use Journify\Consumer\ForkCurl;
 use Journify\Consumer\LibCurl;
+use PHPUnit\Framework\TestCase;
 
 class ClientTest extends TestCase
 {

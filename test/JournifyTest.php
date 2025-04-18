@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Journify\Test;
 
-use PHPUnit\Framework;
-use Journify\Journify;
 use Journify\JournifyException;
+use Journify\Journify;
+use PHPUnit\Framework;
 
 final class JournifyTest extends Framework\TestCase
 {

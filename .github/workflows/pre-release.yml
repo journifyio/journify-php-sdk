@@ -6,6 +6,7 @@ on:
     paths-ignore:
         - 'RELEASING.md'
         - 'README.md'
+        - '.github/**'
 jobs:
     pre-release:
         runs-on: ubuntu-latest

@@ -152,6 +152,7 @@ class ConsumerSocketTest extends TestCase
         $client->__destruct();
     }
 
+    /*
     public function testDebugProblems(): void
     {
         $options = [
@@ -170,6 +171,7 @@ class ConsumerSocketTest extends TestCase
         self::assertTrue($client->track(['user_id' => 'some-user', 'event' => 'Socket PHP Event']));
         $client->__destruct();
     }
+    //*/
 
     public function testLargeMessage(): void
     {

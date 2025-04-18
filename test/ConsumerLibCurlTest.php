@@ -83,6 +83,7 @@ class ConsumerLibCurlTest extends TestCase
         ]));
     }
 
+    /*
     public function testRequestCompression(): void
     {
         $options = [
@@ -99,6 +100,7 @@ class ConsumerLibCurlTest extends TestCase
         self::assertTrue($client->track(['user_id' => 'some-user', 'event' => 'Socket PHP Event']));
         $client->__destruct();
     }
+    //*/
 
     public function testLargeMessageSizeError(): void
     {

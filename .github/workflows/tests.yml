@@ -79,19 +79,19 @@ jobs:
         include:
           # Run code coverage on high/low PHP.
           - php: '7.4'
-            coverage: true
+            coverage: false
             experimental: false
           - php: '8.0'
-            coverage: true
+            coverage: false
             experimental: false
           - php: '8.1'
-            coverage: true
+            coverage: false
             experimental: false
           - php: '8.2'
-            coverage: true
+            coverage: false
             experimental: false  
           - php: '8.3'
-            coverage: true
+            coverage: false
             experimental: false              
 
     name: "Test: PHP ${{ matrix.php }}"

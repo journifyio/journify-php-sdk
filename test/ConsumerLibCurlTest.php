@@ -6,7 +6,6 @@ namespace Journify\Test;
 
 use Journify\Client;
 use PHPUnit\Framework\TestCase;
-use RuntimeException;
 
 class ConsumerLibCurlTest extends TestCase
 {

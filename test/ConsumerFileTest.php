@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Journify\Test;
 
-use PHPUnit\Framework\TestCase;
 use Journify\Client;
+use PHPUnit\Framework\TestCase;
 
 class ConsumerFileTest extends TestCase
 {

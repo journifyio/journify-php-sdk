@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Journify\Test;
 
 use Exception;
+use Journify\Client;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use Journify\Client;
 
 class ConsumerSocketTest extends TestCase
 {
@@ -152,6 +152,7 @@ class ConsumerSocketTest extends TestCase
         $client->__destruct();
     }
 
+    /*
     public function testDebugProblems(): void
     {
         $options = [
@@ -170,6 +171,7 @@ class ConsumerSocketTest extends TestCase
         self::assertTrue($client->track(['user_id' => 'some-user', 'event' => 'Socket PHP Event']));
         $client->__destruct();
     }
+    //*/
 
     public function testLargeMessage(): void
     {

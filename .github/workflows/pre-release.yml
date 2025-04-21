@@ -26,17 +26,12 @@ jobs:
           run: |
             sed -i "s/\$JOURNIFY_VERSION = '.*';/\$JOURNIFY_VERSION = '${{ steps.version.outputs.version_tag }}';/" lib/Version.php 
         
-        - uses: stefanzweifel/git-auto-commit-action@v5
-          with:
-             branch: pre-release-${{ steps.version.outputs.version_tag }}
-             create_branch: true
         
         - name: Create Pull Request
           uses: peter-evans/create-pull-request@v7
           with:
             title: "chore(pre-release): ${{ steps.version.outputs.version_tag }}"
             body: "This PR updates the version to `${{ steps.version.outputs.version_tag }}` on version.php file"
-            base: main
             branch: pre-release-${{ steps.version.outputs.version_tag }}
 
 
